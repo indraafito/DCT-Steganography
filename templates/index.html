@@ -63,17 +63,24 @@
               <i class="fas fa-info-circle mr-1"></i>
               Informasi
             </button>
+            <button
+              onclick="openTeamModal()"
+              class="px-2 py-1 bg-black/60 border border-purple-500/40 rounded-lg hover:bg-purple-600/20 transition-all duration-300 text-purple-300 hover:text-white flex items-center text-sm font-semibold shadow-lg shadow-purple-600/40 hover:glow-purple"
+            >
+              <i class="fas fa-users mr-1"></i>
+              Tim
+            </button>
           </div>
         </div>
       </div>
     </nav>
 
     <!-- Main Container -->
-    <div class="relative z-10 min-h-screen px-6 py-8">
+    <div class="relative z-10 min-h-screen px-6 py-4">
       <div class="max-w-4xl mx-auto">
 
         <!-- Main Content Grid -->
-        <div class="grid xl:grid-cols-2 gap-8 mb-16">
+        <div class="grid xl:grid-cols-2 gap-6 mb-8">
           <!-- Embed Section -->
           <div
             class="glass-effect bg-black/70 border-2 border-purple-500/30 rounded-xl px-6 py-3 transform transition-all duration-300 hover:scale-[1.01] hover:glow-purple-intense group"
@@ -91,19 +98,12 @@
 
             <!-- Image Preview Container -->
             <div class="mb-8">
-              <div
-                id="embed-preview-container"
-                class="preview-container rounded-lg hidden-preview"
-              >
-                <div class="text-center mb-2">
-                  <i class="fas fa-image text-purple-400 text-lg"></i>
+              <div id="embed-preview-container" class="preview-container">
+                <div id="embed-placeholder">
+                  <i class="fas fa-image text-purple-400"></i>
+                  <p class="text-purple-300 text-xs">Belum ada gambar dipilih</p>
                 </div>
-                <img
-                  id="embed-preview"
-                  class="preview-image"
-                  src="#"
-                />
-                <p class="text-purple-300 mt-2 text-xs">Preview Gambar</p>
+                <img id="embed-preview" class="preview-image" src="#" alt="Preview" style="display:none;" />
               </div>
             </div>
 
@@ -144,9 +144,9 @@
                   id="message"
                   name="message"
                   required
-                  rows="8"
+                  rows="6"
                   placeholder="Masukkan pesan rahasia Anda di sini..."
-                  class="w-full p-2 bg-black/60 border-glow rounded-lg text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 resize-none overflow-hidden"
+                  class="w-full p-2 bg-black/60 border-glow rounded-lg text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 resize-none"
                 ></textarea>
               </div>
 
@@ -179,19 +179,12 @@
 
             <!-- Image Preview Container -->
             <div class="mb-8">
-              <div
-                id="extract-preview-container"
-                class="preview-container rounded-lg hidden-preview"
-              >
-                <div class="text-center mb-2">
-                  <i class="fas fa-image text-purple-400 text-lg"></i>
+              <div id="extract-preview-container" class="preview-container">
+                <div id="extract-placeholder">
+                  <i class="fas fa-image text-purple-400"></i>
+                  <p class="text-purple-300 text-xs">Belum ada gambar dipilih</p>
                 </div>
-                <img
-                  id="extract-preview"
-                  class="preview-image"
-                  src="#"
-                />
-                <p class="text-purple-300 mt-2 text-xs">Preview Gambar</p>
+                <img id="extract-preview" class="preview-image" src="#" alt="Preview" style="display:none;" />
               </div>
             </div>
 
@@ -221,51 +214,53 @@
                 </div>
               </div>
 
-              <div class="flex-1"></div>
+              <div class="space-y-3 mt-8">
+                <label class="block text-sm font-medium text-purple-300">
+                  <i class="fas fa-file-alt mr-2"></i>Pesan yang Diekstrak
+                </label>
+                <textarea
+                  readonly
+                  class="w-full h-32 p-2 bg-black/60 border-glow rounded-lg text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 resize-none"
+                  placeholder="Masukkan gambar steganografi untuk melihat pesan yang tersembunyi..."
+                >{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}{% if 'Extracted message:' in message %}{{ message.replace('Extracted message: ', '') }}{% endif %}{% endfor %}{% endwith %}</textarea>
+              </div>
 
-              <button
-                type="submit"
-                class="w-full py-1 px-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 rounded-lg font-bold text-white text-sm transition-all duration-300 transform hover:scale-105 hover:glow-purple-intense focus:outline-none focus:ring-2 focus:ring-purple-500/50"
-              >
-                <span class="flex items-center justify-center">
-                  <i class="fas fa-eye mr-3 text-xl"></i>
-                  Ekstrak Pesan
-                </span>
-              </button>
+              <div class="mt-8">
+                <button
+                  type="submit"
+                  class="w-full py-1 px-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 rounded-lg font-bold text-white text-sm transition-all duration-300 transform hover:scale-105 hover:glow-purple-intense focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                >
+                  <span class="flex items-center justify-center">
+                    <i class="fas fa-eye mr-3 text-xl"></i>
+                    Ekstrak Pesan
+                  </span>
+                </button>
+              </div>
             </form>
-
-            <!-- Extracted Message Display -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-              {% for category, message in messages %}
-                {% if 'Extracted message:' in message %}
-                  <div class="mt-8 space-y-3">
-                    <label class="block text-sm font-medium text-purple-300">
-                      <i class="fas fa-file-alt mr-2"></i>Pesan yang Diekstrak
-                    </label>
-                    <textarea
-                      readonly
-                      class="w-full h-32 p-2 bg-black/60 border-glow rounded-lg text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 resize-none overflow-hidden"
-                    >{{ message.replace('Extracted message: ', '') }}</textarea>
-                  </div>
-                {% endif %}
-              {% endfor %}
-            {% endwith %}
           </div>
         </div>
 
         <!-- Footer -->
-        <div class="mt-16 text-center">
+        <div class="mt-8 text-center">
           <p class="text-gray-400 text-xs">
             <i class="fas fa-file-image mr-2"></i>Format Dukungan: JPEG, PNG,
             BMP | <i class="fas fa-star mr-2"></i>Terbaik dengan format lossless
-            | <i class="fas fa-palette mr-2"></i>Dikonversi ke grayscale untuk
-            pemrosesan
           </p>
         </div>
       </div>
     </div>
 
     {% include 'components/info-modal.html' %}
+    {% include 'components/team-modal.html' %}
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+      function openTeamModal() {
+        document.getElementById('teamModal').classList.remove('hidden');
+      }
+
+      function closeTeamModal() {
+        document.getElementById('teamModal').classList.add('hidden');
+      }
+    </script>
   </body>
 </html>

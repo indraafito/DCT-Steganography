@@ -48,21 +48,94 @@ body {
 }
 
 .preview-container {
-  background: linear-gradient(45deg, #111, #222);
-  border: 2px dashed rgba(147, 51, 234, 0.3);
-  width: 150px;
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
+    width: 100%;
+    max-height: 180px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, rgba(17, 17, 17, 0.6), rgba(34, 34, 34, 0.6));
+    border: 2px dashed rgba(147, 51, 234, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.preview-container:hover {
+    border-color: rgba(147, 51, 234, 0.5);
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.2);
+}
+
+.preview-container.hidden-preview {
+    display: none;
+}
+
+#embed-placeholder, #extract-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+}
+
+#embed-placeholder .fas, #extract-placeholder .fas {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.8;
+}
+
+#embed-placeholder p, #extract-placeholder p {
+    margin-top: 0;
+    opacity: 0.8;
 }
 
 .preview-image {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
+    max-width: 100%;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    margin: 0.5rem auto;
+    display: block;
+}
+
+.preview-container > p {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
+/* Styling untuk textarea yang diekstrak */
+textarea[readonly] {
+    height: 80px !important;
+}
+
+/* Optimasi untuk tampilan laptop */
+@media (min-width: 1024px) {
+    body {
+        overflow: hidden;
+    }
+    
+    .preview-container {
+        max-height: 160px;
+        padding: 1rem;
+    }
+    
+    .preview-image {
+        max-height: 120px;
+    }
+    
+    textarea {
+        height: 80px !important;
+    }
+}
   border-radius: 0.5rem;
 }
 

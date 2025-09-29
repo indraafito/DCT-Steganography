@@ -14,22 +14,23 @@ function previewImage(input, previewId, containerId) {
   const preview = document.getElementById(previewId);
   const container = document.getElementById(containerId);
   const label = input.parentElement.previousElementSibling;
+  const placeholder = document.getElementById(previewId === 'embed-preview' ? 'embed-placeholder' : 'extract-placeholder');
 
   if (input.files && input.files[0]) {
     const reader = new FileReader();
 
     reader.onload = function (e) {
       preview.src = e.target.result;
-      container.classList.remove("hidden-preview");
-      container.classList.add("show-preview");
+      preview.style.display = "block";
+      placeholder.style.display = "none";
       // Ubah teks label menjadi 'Ganti Gambar'
       label.innerHTML = `<i class="fas fa-exchange-alt mr-2"></i>Ganti Gambar`;
     };
 
     reader.readAsDataURL(input.files[0]);
   } else {
-    container.classList.add("hidden-preview");
-    container.classList.remove("show-preview");
+    preview.style.display = "none";
+    placeholder.style.display = "flex";
     // Kembalikan teks label ke semula
     if (input.id === 'embed-image') {
       label.innerHTML = `<i class="fas fa-upload mr-2"></i>Pilih Gambar`;
