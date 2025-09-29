@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #000000;
+  overflow-x: hidden;
+}
+
+.glass-effect {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.gradient-bg {
+  background: linear-gradient(-45deg, #000000, #0f0f0f, #1a1a1a, #0a0a0a);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.glow-purple {
+  box-shadow: 0 0 25px rgba(147, 51, 234, 0.4);
+}
+
+.glow-purple-intense {
+  box-shadow: 0 0 40px rgba(147, 51, 234, 0.6),
+    0 0 80px rgba(147, 51, 234, 0.3);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px rgba(147, 51, 234, 0.8);
+}
+
+.border-glow {
+  border: 2px solid rgba(147, 51, 234, 0.4);
+}
+
+.border-glow:focus-within {
+  border: 2px solid rgba(147, 51, 234, 0.8);
+  box-shadow: 0 0 30px rgba(147, 51, 234, 0.4);
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+  max-height: 90vh;
+}
+
+.preview-container {
+  background: linear-gradient(45deg, #111, #222);
+  border: 2px dashed rgba(147, 51, 234, 0.3);
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.preview-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.hidden-preview {
+  display: none;
+}
+
+.show-preview {
+  display: block;
+}

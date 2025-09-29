@@ -1,0 +1,115 @@
+<!-- Information Modal -->
+<div
+  id="infoModal"
+  class="fixed inset-0 z-50 hidden items-center justify-center modal-overlay"
+>
+  <div
+    class="modal-content bg-black/95 border-2 border-purple-500/40 rounded-2xl p-4 m-2 max-w-lg w-full glass-effect glow-purple-intense animate-fadeIn"
+  >
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center">
+        <i class="fas fa-info-circle text-xl mr-2 text-purple-400"></i>
+        <h3
+          class="text-lg font-bold bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent"
+        >
+          Cara Kerja DCT Steganography
+        </h3>
+      </div>
+      <button
+        onclick="closeInfoModal()"
+        class="text-gray-400 hover:text-white text-2xl p-2 rounded-xl hover:bg-purple-600/20 transition-colors"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <div class="space-y-2">
+        <div
+          class="p-2 bg-purple-900/30 rounded-lg border-2 border-purple-500/30"
+        >
+          <h4 class="font-bold text-purple-300 mb-2 text-sm">
+            <i class="fas fa-microscope mr-2"></i>Metode DCT
+          </h4>
+          <p class="text-gray-300 leading-relaxed text-xs">
+            Menggunakan Transformasi Kosinus Diskrit untuk menyembunyikan
+            data dalam koefisien domain frekuensi daripada nilai piksel
+            spasial.
+          </p>
+        </div>
+
+        <div
+          class="p-2 bg-indigo-900/30 rounded-lg border-2 border-indigo-500/30"
+        >
+          <h4 class="font-bold text-indigo-300 mb-2 text-sm">
+            <i class="fas fa-cogs mr-2"></i>Proses Embedding
+          </h4>
+          <p class="text-gray-300 leading-relaxed text-xs">
+            Gambar dibagi menjadi blok 8x8, DCT diterapkan, dan bit pesan
+            disematkan dalam koefisien frekuensi menengah.
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <div
+          class="p-2 bg-violet-900/30 rounded-lg border-2 border-violet-500/30"
+        >
+          <h4 class="font-bold text-violet-300 mb-2 text-sm">
+            <i class="fas fa-crosshairs mr-2"></i>Deteksi Otomatis
+          </h4>
+          <p class="text-gray-300 leading-relaxed text-xs">
+            Menggunakan sistem pembatas (###END###) untuk mendeteksi batas
+            pesan secara otomatis tanpa memerlukan input panjang.
+          </p>
+        </div>
+
+        <div
+          class="p-2 bg-pink-900/30 rounded-lg border-2 border-pink-500/30"
+        >
+          <h4 class="font-bold text-pink-300 mb-2 text-sm">
+            <i class="fas fa-shield-alt mr-2"></i>Ketahanan
+          </h4>
+          <p class="text-gray-300 leading-relaxed text-xs">
+            Lebih tahan terhadap kompresi gambar dan modifikasi kecil
+            dibandingkan dengan metode LSB.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Details -->
+    <div
+      class="p-2 bg-gradient-to-r from-purple-900/30 to-indigo-900/30 rounded-lg border-2 border-purple-500/40 glow-purple"
+    >
+      <h4 class="font-bold text-purple-300 mb-2 text-center text-base">
+        <i class="fas fa-wrench mr-2"></i>Detail Teknis
+      </h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-center">
+        <div class="p-2 bg-black/30 rounded-lg">
+          <span class="block text-xl font-bold text-purple-400 mb-1">8x8</span>
+          <span class="text-gray-400 text-xs">Ukuran Blok</span>
+        </div>
+        <div class="p-2 bg-black/30 rounded-lg">
+          <span class="block text-xl font-bold text-indigo-400 mb-1">15</span>
+          <span class="text-gray-400 text-xs">Ukuran Langkah</span>
+        </div>
+        <div class="p-2 bg-black/30 rounded-lg">
+          <span class="block text-xl font-bold text-violet-400 mb-1"
+            >Mid-Freq</span
+          >
+          <span class="text-gray-400 text-xs">Rentang Koefisien</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 text-center">
+      <button
+        onclick="closeInfoModal()"
+        class="px-3 py-2 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 rounded-lg font-semibold text-white transition-all duration-300 transform hover:scale-105 text-sm"
+      >
+        <i class="fas fa-check mr-2"></i>Mengerti
+      </button>
+    </div>
+  </div>
+</div>
