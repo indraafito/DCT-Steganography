@@ -62,11 +62,14 @@ class DCTSteganography:
         return "No readable message found"
     
     @staticmethod
-    def embed_message(image_path, message):
+    def embed_message(image_data, message):
         """Embed pesan ke dalam gambar menggunakan DCT pada channel biru"""
         try:
-            # Buka gambar dan pertahankan format RGB
-            img = Image.open(image_path)
+            # Buka gambar dari bytes atau file dan pertahankan format RGB
+            if isinstance(image_data, str):
+                img = Image.open(image_data)
+            else:
+                img = Image.open(image_data)
             if img.mode != 'RGB':
                 img = img.convert('RGB')
             
@@ -162,11 +165,14 @@ class DCTSteganography:
             return None, str(e)
     
     @staticmethod
-    def extract_message(image_path):
+    def extract_message(image_data):
         """Extract pesan dari gambar menggunakan DCT pada channel biru"""
         try:
-            # Buka gambar dan pastikan format RGB
-            img = Image.open(image_path)
+            # Buka gambar dari bytes atau file dan pastikan format RGB
+            if isinstance(image_data, str):
+                img = Image.open(image_data)
+            else:
+                img = Image.open(image_data)
             if img.mode != 'RGB':
                 img = img.convert('RGB')
             

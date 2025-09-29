@@ -21,25 +21,30 @@ def init_routes(app):
                 flash('Please provide both image and message', 'error')
                 return redirect(url_for('index'))
             
-            # Simpan file upload
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
-            image_file.save(image_path)
-            
-            # Embed message menggunakan DCT
-            result_img, status = DCTSteganography.embed_message(image_path, message)
+            # Embed message menggunakan DCT langsung dari file object
+            result_img, status = DCTSteganography.embed_message(image_file, message)
             
             if result_img is None:
                 flash(f'Embedding failed: {status}', 'error')
                 return redirect(url_for('index'))
             
-            # Simpan hasil
-            name, ext = os.path.splitext(image_file.filename)
-            output_filename = f"embedded_{name}.png"  # Simpan sebagai PNG untuk menghindari kompresi JPEG
-            output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_filename)
-            result_img.save(output_path, 'PNG')
+            # Konversi hasil ke bytes
+            from io import BytesIO
+            output_buffer = BytesIO()
+            result_img.save(output_buffer, format='PNG')
+            output_buffer.seek(0)
             
-            flash(f'Message embedded successfully! Download: {output_filename}', 'success')
-            return send_file(output_path, as_attachment=True, download_name=output_filename)
+            # Generate nama file output
+            name, _ = os.path.splitext(image_file.filename)
+            output_filename = f"embedded_{name}.png"
+            
+            flash('Message embedded successfully!', 'success')
+            return send_file(
+                output_buffer,
+                mimetype='image/png',
+                as_attachment=True,
+                download_name=output_filename
+            )
             
         except Exception as e:
             flash(f'Error: {str(e)}', 'error')
@@ -58,12 +63,8 @@ def init_routes(app):
                 flash('Please select an image file', 'error')
                 return redirect(url_for('index'))
             
-            # Simpan file upload
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_file.filename)
-            image_file.save(image_path)
-            
-            # Extract message menggunakan DCT
-            extracted_message = DCTSteganography.extract_message(image_path)
+            # Extract message menggunakan DCT langsung dari file object
+            extracted_message = DCTSteganography.extract_message(image_file)
             
             if extracted_message and extracted_message != "No hidden message found":
                 flash(f'Extracted message: {extracted_message}', 'success')
